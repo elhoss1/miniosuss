@@ -1,0 +1,198 @@
+<div class="cart-page">
+  <!-- Page Header - Premium -->
+  <div class="page-header">
+    <div class="header-overlay"></div>
+    <div class="container">
+      <div class="header-content">
+        <div class="header-breadcrumb">
+          <a routerLink="/" class="breadcrumb-link">الرئيسية</a>
+          <span class="breadcrumb-separator">/</span>
+          <span class="breadcrumb-current">سلة التسوق</span>
+        </div>
+        <h1>🛍️خاص بطلبات الجملة للشركات والمؤسسات</h1>
+        <p>راجع منتجاتك واختر الطريقة المناسبة لإتمام طلبك</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- Cart with Items -->
+    <div class="cart-content" *ngIf="cartItems.length > 0">
+      <!-- Cart Items Section -->
+      <div class="cart-items-section">
+        <div class="section-header">
+          <h2>منتجاتك ({{ cartItems.length }})</h2>
+          <span class="item-count-badge">{{ cartItems.length }} عنصر</span>
+        </div>
+
+        <div class="cart-items">
+          <div class="cart-item" *ngFor="let item of cartItems; let i = index">
+            <!-- Item Image -->
+            <div class="item-image-wrapper">
+              <div class="item-image">
+                <img [src]="item.product.images && item.product.images.length > 0 ? item.product.images[0].src : 'https://via.placeholder.com/150'"
+                     [alt]="item.product.name" />
+              </div>
+              <div class="item-badge" *ngIf="item.quantity > 1">{{ item.quantity }}x</div>
+            </div>
+
+            <!-- Item Details -->
+            <div class="item-details">
+              <h3 class="item-name">{{ item.product.name }}</h3>
+              <p class="item-description">منتج فاخر من أُسُس الحلوى</p>
+              <div class="item-price-section">
+              </div>
+            </div>
+
+            <!-- Item Quantity Control -->
+            <div class="item-quantity">
+              <button (click)="decreaseQuantity(item.product.id)" class="qty-btn qty-minus" title="تقليل الكمية">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+              </button>
+              <input type="number" [value]="item.quantity" (change)="updateQuantity(item.product.id, $event)" min="1" class="qty-input" />
+              <button (click)="increaseQuantity(item.product.id)" class="qty-btn qty-plus" title="زيادة الكمية">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="12" y1="5" x2="12" y2="19"></line>
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+              </button>
+            </div>
+
+            <!-- Item Total -->
+            <div class="item-total">
+
+            </div>
+
+            <!-- Item Remove Button -->
+            <div class="item-remove">
+              <button (click)="removeItem(item.product.id)" class="btn-remove" title="حذف المنتج">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="3 6 5 6 21 6"></polyline>
+                  <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                  <line x1="10" y1="11" x2="10" y2="17"></line>
+                  <line x1="14" y1="11" x2="14" y2="17"></line>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cart Summary Section -->
+      <div class="cart-summary-section">
+        <!-- Summary Card -->
+        <div class="cart-summary">
+          <div class="summary-header">
+            <h2>📋 ملخص الطلب</h2>
+            <span class="summary-badge"> عدد المنتجات: {{ cartItems.length }}</span>
+          </div>
+
+          <div class="summary-divider"></div>
+
+          <!-- Summary Details -->
+          <div class="summary-details">
+
+            <!-- <div class="summary-row">
+              <span class="summary-label">رسوم التوصيل:</span>
+              <span class="summary-value">
+                <span [ngStyle]="{ color: shiping === 0 ? 'green' : 'inherit' }">
+                  {{ shiping === 0 ? 'مجاني' : shiping + ' ر.س' }}
+                </span>
+              </span>
+            </div> -->
+            <!-- <div class="summary-row discount" *ngIf="false">
+              <span class="summary-label">الخصم:</span>
+              <span class="summary-value discount-value">-50 ر.س</span>
+            </div> -->
+          </div>
+
+          <div class="summary-divider"></div>
+
+          <!-- Total
+          <div class="summary-total">
+            <span class="total-label">الإجمالي :</span>
+            <span class="total-amount">{{ total + shiping }} ر.س</span>
+          </div> -->
+
+          <!-- Promo Code Section -->
+
+
+          <!-- Checkout Button -->
+
+
+          <!-- Continue Shopping Button -->
+
+
+          <div class=" btn-gomla">
+          <button
+              routerLink="/checkoutgomla"
+              class="btn btn-primary btn-checkout"
+              aria-label="إتمام الطلب الآن"
+              >
+            <span class="btn-icon">✓</span>
+            الطلب الآن
+           </button>
+
+
+          </div>
+
+           <div *ngIf="total < 500" class="checkout-warning">
+            ⚠️ سيتم التواصل معكم قريبًا ، وتقديم السعر المناسب لكم ، لمنتجات متميزة
+          </div>
+
+
+          <button routerLink="/" class="btn btn-secondary btn-continue" aria-label="متابعة التسوق">
+            <span class="btn-icon">←</span>
+            متابعة التسوق
+          </button>
+          <!-- رسالة توضيحية -->
+
+
+
+
+          <!-- Trust Badges -->
+          <div class="trust-badges">
+            <div class="badge">
+              <span class="badge-icon">🔒</span>
+              <span class="badge-text">دفع آمن</span>
+            </div>
+            <div class="badge">
+              <span class="badge-icon">🚚</span>
+              <span class="badge-text">توصيل <br> بنقل مبرد</span>
+            </div>
+            <div class="badge">
+              <span class="badge-icon">🏛️</span>
+              <span class="badge-text"> مرخص من وزارة التجارة </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recommended Products (Optional) -->
+
+      </div>
+    </div>
+
+    <!-- Empty Cart State -->
+    <div class="empty-cart" *ngIf="cartItems.length === 0">
+      <div class="empty-illustration">
+        <div class="empty-icon">🛒</div>
+        <div class="empty-decoration">
+          <span class="decoration-dot decoration-1"></span>
+          <span class="decoration-dot decoration-2"></span>
+          <span class="decoration-dot decoration-3"></span>
+        </div>
+      </div>
+      <h2>سلة التسوق فارغة</h2>
+      <p>لم تقم بإضافة أي منتجات بعد. ابدأ التسوق الآن!</p>
+      <div class="empty-actions">
+        <a routerLink="/" class="btn btn-primary btn-large">
+          <span class="btn-icon">🛍️</span>
+          تصفح المنتجات
+        </a>
+
+      </div>
+    </div>
+  </div>
+</div>
